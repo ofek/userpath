@@ -63,6 +63,9 @@ Only 3!
       prepend  Prepends to the user PATH
       verify   Checks if a location is in the user PATH
 
+.. image:: https://raw.githubusercontent.com/ofek/userpath/master/visuals/lt.PNG
+    :alt: Example run
+
 API
 ---
 
