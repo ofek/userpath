@@ -9,9 +9,9 @@ userpath
     :target: https://travis-ci.org/ofek/userpath
     :alt: Travis CI
 
-.. image:: https://img.shields.io/codecov/c/github/ofek/userpath/master.svg?style=flat-square
-    :target: https://codecov.io/gh/ofek/userpath
-    :alt: Codecov
+.. image:: https://img.shields.io/appveyor/ci/ofek/userpath/master.svg?style=flat-square
+    :target: https://ci.appveyor.com/project/ofek/userpath
+    :alt: AppVeyor CI
 
 .. image:: https://img.shields.io/pypi/pyversions/adduserpath.svg?style=flat-square
     :target: https://pypi.org/project/adduserpath
