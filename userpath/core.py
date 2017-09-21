@@ -2,9 +2,7 @@ import os
 import platform
 import subprocess
 
-ON_WINDOWS = False
-if os.name == 'nt' or platform.system() == 'Windows':
-    ON_WINDOWS = True
+ON_WINDOWS = os.name == 'nt' or platform.system() == 'Windows'
 
 
 def normpath(location):
