@@ -1,0 +1,3 @@
+[console_scripts]
+userpath = userpath.cli:userpath
+

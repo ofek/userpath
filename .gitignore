@@ -1,0 +1,11 @@
+*.log
+*.pyc
+.cache/
+.coverage
+.idea/
+.vscode/
+userpath.egg-info/
+build/
+dist/
+docs/build/
+wheelhouse/
