@@ -87,7 +87,7 @@ else:
 
                 lines.extend([
                     '# Created by `{}` on {}\n'.format(
-                        app_name or 'addpath', datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+                        app_name or 'userpath', datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
                     ),
                     INIT_FILES[file].format(new_path)
                 ])
