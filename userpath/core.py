@@ -3,12 +3,12 @@ import platform
 import subprocess
 
 ON_WINDOWS = False
-if os.name == 'nt' or platform.system() == 'Windows':  # no cov
+if os.name == 'nt' or platform.system() == 'Windows':
     ON_WINDOWS = True
 
 
-def normpath(path):
-    return os.path.normpath(path.strip(';:'))
+def normpath(location):
+    return os.path.normpath(location.strip(';:'))
 
 
 def location_in_path(location, path):
@@ -99,21 +99,21 @@ else:
         return location_in_path(path, get_new_path())
 
 
-def prepend(path, app_name=None):
-    return put(path, front=True, app_name=app_name)
+def prepend(location, app_name=None):
+    return put(location, front=True, app_name=app_name)
 
 
-def append(path, app_name=None):
-    return put(path, front=False, app_name=app_name)
+def append(location, app_name=None):
+    return put(location, front=False, app_name=app_name)
 
 
-def in_current_path(path):
-    return location_in_path(path, os.environ.get('PATH', ''))
+def in_current_path(location):
+    return location_in_path(location, os.environ.get('PATH', ''))
 
 
-def in_new_path(path):
-    return location_in_path(path, get_new_path())
+def in_new_path(location):
+    return location_in_path(location, get_new_path())
 
 
-def need_shell_restart(path):
-    return not in_current_path(path) and in_new_path(path)
+def need_shell_restart(location):
+    return not in_current_path(location) and in_new_path(location)
