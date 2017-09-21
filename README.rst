@@ -47,60 +47,40 @@ Python 2.6-2.7/3.3+ and PyPy.
 Commands
 --------
 
-Only 2!
-
-pybin
-^^^^^
+Only 3!
 
 .. code-block:: bash
 
-    $ pybin -h
-    Usage: pybin [OPTIONS] COMMAND [ARGS]...
-
-      Shows the location of the bin directory and whether or not it is in the
-      user PATH.
+    $ userpath -h
+    Usage: userpath [OPTIONS] COMMAND [ARGS]...
 
     Options:
-      -p, --pypath TEXT  An absolute path to a Python executable.
-      --version          Show the version and exit.
-      -h, --help         Show this message and exit.
+      --version   Show the version and exit.
+      -h, --help  Show this message and exit.
 
     Commands:
-      put  Updates the user PATH
-
-pybin put
-^^^^^^^^^
-
-.. code-block:: bash
-
-    $ pybin put -h
-    Usage: pybin put [OPTIONS]
-
-      Updates the user PATH. The shell must be restarted for the update to take
-      effect.
-
-    Options:
-      -p, --pypath TEXT  An absolute path to a Python executable.
-      -f, --force        Update PATH even if it appears to be correct.
-      -h, --help         Show this message and exit.
+      append   Appends to the user PATH
+      prepend  Prepends to the user PATH
+      verify   Checks if a location is in the user PATH
 
 API
 ---
 
 .. code-block:: python
 
-    >>> from pybin import in_path, locate, put_in_path
-    >>> in_path()
+    >>> import userpath
+    >>> location = r'C:\Users\Ofek\Desktop\test'
+    >>>
+    >>> userpath.in_current_path(location)
     False
-    >>> locate()
-    'C:\\Users\\Ofek\\AppData\\Roaming\\Python\\Python36\\Scripts'
-    >>> success = put_in_path()
-
-Manual modification
--------------------
-
-Use the location pybin shows in concert with this very comprehensive document
-Java provides: `<https://www.java.com/en/download/help/path.xml>`_
+    >>> userpath.in_new_path(location)
+    False
+    >>> userpath.append(location)
+    True
+    >>> userpath.in_new_path(location)
+    True
+    >>> userpath.need_shell_restart(location)
+    True
 
 License
 -------
