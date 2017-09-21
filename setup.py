@@ -1,3 +1,5 @@
+from io import open
+
 from setuptools import find_packages, setup
 
 with open('userpath/__init__.py', 'r') as f:
@@ -8,8 +10,8 @@ with open('userpath/__init__.py', 'r') as f:
     else:
         version = '0.0.1'
 
-with open('README.rst', 'rb') as f:
-    readme = f.read().decode('utf-8')
+with open('README.rst', 'r', encoding='utf-8') as f:
+    readme = f.read()
 
 REQUIRES = ['click']
 
@@ -46,7 +48,7 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: Implementation :: CPython',
-        'Programming Language :: Python :: Implementation :: PyPy',
+        'Programming Language :: Python :: Implementation :: PyPy'
     ],
 
     install_requires=REQUIRES,
