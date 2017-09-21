@@ -4,7 +4,7 @@
 .coverage
 .idea/
 .vscode/
-userpath.egg-info/
+adduserpath.egg-info/
 build/
 dist/
 docs/build/
