@@ -1,8 +1,8 @@
 userpath
 ========
 
-.. image:: https://img.shields.io/pypi/v/userpath.svg?style=flat-square
-    :target: https://pypi.org/project/userpath
+.. image:: https://img.shields.io/pypi/v/adduserpath.svg?style=flat-square
+    :target: https://pypi.org/project/adduserpath
     :alt: Latest PyPI version
 
 .. image:: https://img.shields.io/travis/ofek/userpath/master.svg?style=flat-square
@@ -13,11 +13,11 @@ userpath
     :target: https://codecov.io/gh/ofek/userpath
     :alt: Codecov
 
-.. image:: https://img.shields.io/pypi/pyversions/userpath.svg?style=flat-square
-    :target: https://pypi.org/project/userpath
+.. image:: https://img.shields.io/pypi/pyversions/adduserpath.svg?style=flat-square
+    :target: https://pypi.org/project/adduserpath
     :alt: Supported Python versions
 
-.. image:: https://img.shields.io/pypi/l/userpath.svg?style=flat-square
+.. image:: https://img.shields.io/pypi/l/adduserpath.svg?style=flat-square
     :target: https://choosealicense.com/licenses
     :alt: License
 
@@ -36,7 +36,7 @@ major operating systems and does not require elevated privileges!
 Installation
 ------------
 
-userpath is distributed on `PyPI <https://pypi.org>`_ as a universal
+adduserpath is distributed on `PyPI <https://pypi.org>`_ as a universal
 wheel and is available on Linux/macOS and Windows and supports
 Python 2.6-2.7/3.3+ and PyPy.
 
