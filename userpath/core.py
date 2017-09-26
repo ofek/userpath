@@ -24,13 +24,13 @@ if ON_WINDOWS:
         # We do this because the output may contain new lines.
         return ''.join(output.splitlines())
 
-    def put(path, front=True, app_name=None):
-        path = normpath(path)
+    def put(location, front=True, app_name=None):
+        location = normpath(location)
 
         # PowerShell will always be available on Windows 7 or later.
         try:
             old_path = get_new_path()
-            head, tail = (path, old_path) if front else (old_path, path)
+            head, tail = (location, old_path) if front else (old_path, location)
             new_path = '{}{}{}'.format(head, os.pathsep, tail)
 
             subprocess.check_call([
@@ -40,7 +40,7 @@ if ON_WINDOWS:
             ], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         except subprocess.CalledProcessError:
             try:
-                head, tail = (path, '%~a') if front else ('%~a', path)
+                head, tail = (location, '%~a') if front else ('%~a', location)
                 new_path = '{}{}{}'.format(head, os.pathsep, tail)
 
                 # https://superuser.com/a/601034/766960
@@ -52,7 +52,8 @@ if ON_WINDOWS:
             except subprocess.CalledProcessError:
                 return False
 
-        return location_in_path(path, get_new_path())
+        new_path = get_new_path()
+        return all(location_in_path(l, new_path) for l in location.split(os.pathsep))
 
 else:
     from datetime import datetime
@@ -67,13 +68,13 @@ else:
     def get_new_path():
         return subprocess.check_output(['bash', '--login', '-c', 'echo $PATH']).decode().strip()
 
-    def put(path, front=True, app_name=None):
+    def put(location, front=True, app_name=None):
         # This function is probably insufficient even though it works in
         # most situations. Please improve this to succeed more broadly!
-        path = normpath(path)
+        location = normpath(location)
 
         try:
-            head, tail = (path, '$PATH') if front else ('$PATH', path)
+            head, tail = (location, '$PATH') if front else ('$PATH', location)
             new_path = '{}{}{}'.format(head, os.pathsep, tail)
 
             for file in INIT_FILES:
@@ -94,24 +95,40 @@ else:
         except (OSError, PermissionError):
             return False
 
-        return location_in_path(path, get_new_path())
+        new_path = get_new_path()
+        return all(location_in_path(l, new_path) for l in location.split(os.pathsep))
 
 
 def prepend(location, app_name=None):
+    if isinstance(location, list) or isinstance(location, tuple):
+        location = os.pathsep.join(normpath(l) for l in location)
     return put(location, front=True, app_name=app_name)
 
 
 def append(location, app_name=None):
+    if isinstance(location, list) or isinstance(location, tuple):
+        location = os.pathsep.join(normpath(l) for l in location)
     return put(location, front=False, app_name=app_name)
 
 
 def in_current_path(location):
-    return location_in_path(location, os.environ.get('PATH', ''))
+    current_path = os.environ.get('PATH', '')
+    if isinstance(location, list) or isinstance(location, tuple):
+        return all(location_in_path(l, current_path) for l in location)
+    else:
+        return location_in_path(location, current_path)
 
 
 def in_new_path(location):
-    return location_in_path(location, get_new_path())
+    new_path = get_new_path()
+    if isinstance(location, list) or isinstance(location, tuple):
+        return all(location_in_path(l, new_path) for l in location)
+    else:
+        return location_in_path(location, new_path)
 
 
 def need_shell_restart(location):
-    return not in_current_path(location) and in_new_path(location)
+    if isinstance(location, list) or isinstance(location, tuple):
+        return any(not in_current_path(l) and in_new_path(l) for l in location)
+    else:
+        return not in_current_path(location) and in_new_path(location)

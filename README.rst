@@ -61,7 +61,7 @@ Only 3!
     Commands:
       append   Appends to the user PATH
       prepend  Prepends to the user PATH
-      verify   Checks if a location is in the user PATH
+      verify   Checks if locations are in the user PATH
 
 .. image:: https://raw.githubusercontent.com/ofek/visuals/master/userpath/lt.PNG
     :alt: Example run
