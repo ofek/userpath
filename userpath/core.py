@@ -6,7 +6,7 @@ ON_WINDOWS = os.name == 'nt' or platform.system() == 'Windows'
 
 
 def normpath(location):
-    return os.path.normpath(location.strip(';:'))
+    return os.path.abspath(os.path.expanduser(location.strip(';:')))
 
 
 def location_in_path(location, path):
