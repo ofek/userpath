@@ -1,8 +1,8 @@
 userpath
 ========
 
-.. image:: https://img.shields.io/pypi/v/adduserpath.svg?style=flat-square
-    :target: https://pypi.org/project/adduserpath
+.. image:: https://img.shields.io/pypi/v/userpath.svg?style=flat-square
+    :target: https://pypi.org/project/userpath
     :alt: Latest PyPI version
 
 .. image:: https://img.shields.io/travis/ofek/userpath/master.svg?style=flat-square
@@ -13,11 +13,11 @@ userpath
     :target: https://ci.appveyor.com/project/ofek/userpath
     :alt: AppVeyor CI
 
-.. image:: https://img.shields.io/pypi/pyversions/adduserpath.svg?style=flat-square
-    :target: https://pypi.org/project/adduserpath
+.. image:: https://img.shields.io/pypi/pyversions/userpath.svg?style=flat-square
+    :target: https://pypi.org/project/userpath
     :alt: Supported Python versions
 
-.. image:: https://img.shields.io/pypi/l/adduserpath.svg?style=flat-square
+.. image:: https://img.shields.io/pypi/l/userpath.svg?style=flat-square
     :target: https://choosealicense.com/licenses
     :alt: License
 
@@ -36,13 +36,13 @@ major operating systems and does not require elevated privileges!
 Installation
 ------------
 
-adduserpath is distributed on `PyPI <https://pypi.org>`_ as a universal
+userpath is distributed on `PyPI <https://pypi.org>`_ as a universal
 wheel and is available on Linux/macOS and Windows and supports
 Python 2.6-2.7/3.3+ and PyPy.
 
 .. code-block:: bash
 
-    $ pip install adduserpath
+    $ pip install userpath
 
 Commands
 --------

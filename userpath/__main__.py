@@ -1,3 +1,3 @@
 import sys
-from addpath.cli import addpath
-sys.exit(addpath())
+from .cli import userpath
+sys.exit(userpath())

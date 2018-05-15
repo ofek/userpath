@@ -16,7 +16,7 @@ with open('README.rst', 'r', encoding='utf-8') as f:
 REQUIRES = ['click']
 
 setup(
-    name='adduserpath',
+    name='userpath',
     version=version,
     description='Cross-platform tool for adding locations to the user PATH, no sudo/runas required!',
     long_description=readme,
