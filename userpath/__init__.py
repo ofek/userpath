@@ -1,4 +1,4 @@
-from userpath.core import (
+from .core import (
     prepend, append, in_current_path, in_new_path, need_shell_restart, normpath
 )
 
