@@ -132,15 +132,15 @@ class UnixInterface:
                         lines = []
 
                     lines.append(
-                        '\n{} Created by `{}` on {}\n'.format(
+                        u'\n{} Created by `{}` on {}\n'.format(
                             shell.comment_starter, app_name, datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
                         )
                     )
-                    lines.append('{}\n'.format(contents))
+                    lines.append(u'{}\n'.format(contents))
 
                     with open(file, 'w', encoding='utf-8') as f:
                         f.writelines(lines)
-                except Exception:
+                except Exception as e:
                     continue
 
         return self.location_in_new_path(location)
