@@ -140,7 +140,7 @@ class UnixInterface:
 
                     with open(file, 'w', encoding='utf-8') as f:
                         f.writelines(lines)
-                except Exception as e:
+                except Exception:
                     continue
 
         return self.location_in_new_path(location)
