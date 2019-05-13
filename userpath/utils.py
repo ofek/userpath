@@ -48,3 +48,5 @@ def get_parent_process_name():
         return subprocess.check_output(['ps', '-o', 'cmd=', str(ppid)]).decode('utf-8').strip()
     except Exception:
         pass
+
+    return ''
