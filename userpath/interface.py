@@ -123,7 +123,7 @@ class UnixInterface:
         app_name = app_name or 'userpath'
 
         for shell in self.shells:
-            for file, contents in shell.config(location, front=front):
+            for file, contents in shell.config(location, front=front).items():
                 try:
                     if os.path.exists(file):
                         with open(file, 'r', encoding='utf-8') as f:
