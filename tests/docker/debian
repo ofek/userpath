@@ -7,6 +7,4 @@ RUN apt-get update \
 COPY requirements-dev.txt /
 RUN pip install -r requirements-dev.txt
 
-RUN pip install xonsh
-
 CMD ["tail", "-f", "/dev/null"]
