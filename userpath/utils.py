@@ -14,7 +14,6 @@ def normpath(location):
     return os.path.abspath(os.path.expanduser(location.strip(';:')))
 
 
-
 def location_in_path(location, path):
     return normpath(location) in (os.path.normpath(p) for p in path.split(os.pathsep))
 
@@ -23,8 +22,15 @@ def in_current_path(location):
     return location_in_path(location, os.environ.get('PATH', ''))
 
 
+def ensure_parent_dir_exists(path):
+    parent_dir = os.path.dirname(os.path.abspath(path))
+    if not os.path.isdir(parent_dir):
+        os.makedirs(parent_dir)
+
+
 def get_flat_output(command, sep=os.pathsep, **kwargs):
-    output = subprocess.check_output(command, **kwargs).decode('utf-8').strip()
+    process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, **kwargs)
+    output = process.communicate()[0].decode('utf-8').strip()
 
     # We do this because the output may contain new lines.
     lines = [line.strip() for line in output.splitlines()]

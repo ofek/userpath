@@ -1,0 +1,3 @@
+# Ignore this directory used for coverage aggregation
+*
+!.gitignore

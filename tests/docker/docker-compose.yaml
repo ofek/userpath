@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+
+  userpath:
+    container_name: ${SHELL}-${DOCKERFILE}
+    build:
+      context: .
+      dockerfile: ./${DOCKERFILE}
+      args:
+        PYTHON_VERSION: ${PYTHON_VERSION}
+    environment:
+      - SHELL=${SHELL}
+    volumes:
+      - ./../../:/home/userpath
