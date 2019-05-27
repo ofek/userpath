@@ -5,29 +5,30 @@ from datetime import datetime
 from io import open
 
 from .shells import DEFAULT_SHELLS, SHELLS
-from .utils import get_flat_output, get_parent_process_name, location_in_path, normpath
+from .utils import ensure_parent_dir_exists, get_flat_output, get_parent_process_name, location_in_path, normpath
 
 
 class WindowsInterface:
     def __init__(self, **kwargs):
         pass
 
-    @classmethod
-    def get_windows_new_path(cls):
-        return get_flat_output(
-            [
-                'powershell', '-Command', "& {[Environment]::GetEnvironmentVariable('PATH', 'User')}"
-            ],
-            sep='',
-            shell=True,
-        )
+    def location_in_new_path(self, location, check=False):
+        locations = normpath(location).split(os.pathsep)
+        show_path_command = ['powershell', '-Command', "& {[Environment]::GetEnvironmentVariable('PATH', 'User')}"]
+        new_path = get_flat_output(show_path_command, sep='', shell=True)
 
-    def location_in_new_path(self, location):
-        location = normpath(location)
-        new_path = self.get_windows_new_path()
-        return all(location_in_path(l, new_path) for l in location.split(os.pathsep))
+        for location in locations:
+            if not location_in_path(location, new_path):
+                if check:
+                    raise Exception(
+                        'Unable to find `{}` in the output of `{}`:\n{}'.format(location, show_path_command, new_path)
+                    )
+                else:
+                    return False
+        else:
+            return True
 
-    def put(self, location, front=True, **kwargs):
+    def put(self, location, front=True, check=False, **kwargs):
         location = normpath(location)
 
         # PowerShell should always be available on Windows 7 or later.
@@ -61,7 +62,7 @@ class WindowsInterface:
             except subprocess.CalledProcessError:
                 return False
 
-        return self.location_in_new_path(location)
+        return self.location_in_new_path(location, check=check)
 
 
 class UnixInterface:
@@ -134,6 +135,8 @@ class UnixInterface:
         for shell in self.shells:
             for file, contents in shell.config(location, front=front).items():
                 try:
+                    ensure_parent_dir_exists(file)
+
                     if os.path.exists(file):
                         with open(file, 'r', encoding='utf-8') as f:
                             lines = f.readlines()
