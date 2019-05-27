@@ -6,7 +6,3 @@ ON_WINDOWS_CI = 'APPVEYOR' in os.environ
 
 def get_random_path():
     return urlsafe_b64encode(os.urandom(5)).decode()
-
-
-def testing_shell(shell_name):
-    return os.environ.get('SHELL') == shell_name

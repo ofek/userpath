@@ -1,4 +1,12 @@
 ARG PYTHON_VERSION
 FROM python:${PYTHON_VERSION}-stretch
 
-CMD pip install -r /home/userpath/requirements-dev.txt
+RUN apt-get update \
+ && apt-get --no-install-recommends -y install fish zsh
+
+COPY requirements-dev.txt /
+RUN pip install -r requirements-dev.txt
+
+RUN pip install xonsh
+
+CMD ["tail", "-f", "/dev/null"]

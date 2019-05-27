@@ -3,7 +3,7 @@ import userpath
 
 from .utils import ON_WINDOWS_CI, get_random_path
 
-SHELL_NAME = 'bash'
+SHELL_NAME = 'sh'
 
 pytestmark = pytest.mark.skipif(ON_WINDOWS_CI, reason='Tests not run on Windows CI')
 

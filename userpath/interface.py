@@ -52,7 +52,7 @@ class WindowsInterface:
                 # https://superuser.com/a/601034/766960
                 subprocess.check_output(
                     (
-                        'for /f "skip=2 tokens=3*" %a in (\'reg query HKCU\Environment '
+                        'for /f "skip=2 tokens=3*" %a in (\'reg query HKCU\\Environment '
                         '/v PATH\') do @if [%b]==[] ( @setx PATH "{new_path}" ) else '
                         '( @setx PATH "{new_path} %~b" )'.format(new_path=new_path)
                     ),
