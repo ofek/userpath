@@ -13,7 +13,7 @@ with open('userpath/__init__.py', 'r') as f:
 with open('README.rst', 'r', encoding='utf-8') as f:
     readme = f.read()
 
-REQUIRES = ['click']
+REQUIRES = ['click', 'distro']
 
 setup(
     name='userpath',

@@ -4,8 +4,16 @@ from itertools import chain
 
 import pytest
 
+from userpath.shells import SHELLS
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
+
+
+def pytest_configure(config):
+    # pytest will emit warnings if these aren't registered ahead of time
+    for shell in sorted(SHELLS):
+        config.addinivalue_line('markers', '{shell}: marker to only run tests for {shell}'.format(shell=shell))
 
 
 @pytest.fixture(scope='class')

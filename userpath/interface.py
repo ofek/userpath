@@ -108,17 +108,26 @@ class UnixInterface:
         if shell in SHELLS:
             return shell
 
-    def location_in_new_path(self, location):
+    def location_in_new_path(self, location, check=False):
         locations = normpath(location).split(os.pathsep)
 
         for shell in self.shells_to_verify:
-            new_path = get_flat_output(shell.show_path_command())
-            if not all(location_in_path(l, new_path) for l in locations):
-                return False
+            for show_path_command in shell.show_path_commands():
+                new_path = get_flat_output(show_path_command)
+                for location in locations:
+                    if not location_in_path(location, new_path):
+                        if check:
+                            raise Exception(
+                                'Unable to find `{}` in the output of `{}`:\n{}'.format(
+                                    location, show_path_command, new_path
+                                )
+                            )
+                        else:
+                            return False
         else:
             return True
 
-    def put(self, location, front=True, app_name=None):
+    def put(self, location, front=True, app_name=None, check=False):
         location = normpath(location)
         app_name = app_name or 'userpath'
 
@@ -143,7 +152,7 @@ class UnixInterface:
                 except Exception:
                     continue
 
-        return self.location_in_new_path(location)
+        return self.location_in_new_path(location, check=check)
 
 
 __default_interface = WindowsInterface if os.name == 'nt' or platform.system() == 'Windows' else UnixInterface

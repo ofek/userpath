@@ -1,3 +1,7 @@
+# Deps
 click
+distro
+
+# Test deps
 coverage
 pytest

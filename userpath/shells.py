@@ -1,5 +1,7 @@
 from os import path, pathsep
 
+import distro
+
 DEFAULT_SHELLS = ('bash', 'sh')
 
 
@@ -18,8 +20,9 @@ class Sh(Shell):
         return {path.join(self.home, '.profile'): 'PATH="{}"'.format(new_path)}
 
     @classmethod
-    def show_path_command(cls):
-        return ['sh', '-l', '-c', 'echo $PATH']
+    def show_path_commands(cls):
+        # TODO: Find out what file influences non-login shells. The issue may simply be our Docker setup.
+        return [['sh', '-i', '-l', '-c', 'echo $PATH']]
 
 
 class Bash(Shell):
@@ -28,17 +31,24 @@ class Bash(Shell):
         new_path = '{}{}{}'.format(head, pathsep, tail)
         contents = 'export PATH="{}"'.format(new_path)
 
-        return {
-            path.join(self.home, '.bashrc'): contents,
+        configs = {path.join(self.home, '.bashrc'): contents}
+
+        # https://github.com/ofek/userpath/issues/3#issuecomment-492491977
+        if distro.id() == 'ubuntu':
+            login_config = path.join(self.home, '.profile')
+        else:
             # NOTE: If it is decided in future that we want to make a distinction between
             # login and non-login shells, be aware that macOS will still need this since
             # Terminal.app runs a login shell by default for each new terminal window.
-            path.join(self.home, '.bash_profile'): contents,
-        }
+            login_config = path.join(self.home, '.bash_profile')
+
+        configs[login_config] = contents
+
+        return configs
 
     @classmethod
-    def show_path_command(cls):
-        return ['bash', '--login', '-c', 'echo $PATH']
+    def show_path_commands(cls):
+        return [['bash', '-i', '-c', 'echo $PATH'], ['bash', '-i', '-l', '-c', 'echo $PATH']]
 
 
 class Fish(Shell):
@@ -52,8 +62,11 @@ class Fish(Shell):
         return {path.join(self.home, '.config', 'fish', 'config.fish'): contents}
 
     @classmethod
-    def show_path_command(cls):
-        return ['fish', '--login', '-c', 'for p in $PATH; echo "$p"; end']
+    def show_path_commands(cls):
+        return [
+            ['fish', '-i', '-c', 'for p in $PATH; echo "$p"; end'],
+            ['fish', '-i', '-l', '-c', 'for p in $PATH; echo "$p"; end'],
+        ]
 
 
 class Xonsh(Shell):
@@ -61,15 +74,16 @@ class Xonsh(Shell):
         locations = location.split(pathsep)
 
         if front:
-            contents = '\n'.join('$PATH.insert(0, r"{}")'.format(location) for location in reversed(locations))
+            contents = '\n'.join('$PATH.insert(0, {!r})'.format(location) for location in reversed(locations))
         else:
-            contents = '\n'.join('$PATH.append(r"{}")'.format(location) for location in locations)
+            contents = '\n'.join('$PATH.append({!r})'.format(location) for location in locations)
 
         return {path.join(self.home, '.xonshrc'): contents}
 
     @classmethod
-    def show_path_command(cls):
-        return ['xonsh', '--login', '-c', "print('{}'.join($PATH))".format(pathsep)]
+    def show_path_commands(cls):
+        command = "print('{}'.join($PATH))".format(pathsep)
+        return [['xonsh', '-i', '-c', command], ['xonsh', '-i', '--login', '-c', command]]
 
 
 class Zsh(Shell):
@@ -81,8 +95,8 @@ class Zsh(Shell):
         return {path.join(self.home, '.zshrc'): contents, path.join(self.home, '.zprofile'): contents}
 
     @classmethod
-    def show_path_command(cls):
-        return ['zsh', '--login', '-c', 'echo $PATH']
+    def show_path_commands(cls):
+        return [['zsh', '-i', '-c', 'echo $PATH'], ['zsh', '-i', '-l', '-c', 'echo $PATH']]
 
 
 SHELLS = {
