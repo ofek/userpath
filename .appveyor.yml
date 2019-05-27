@@ -19,4 +19,4 @@ install:
 
 test_script:
   - "%PYTHON%\\python.exe -m tox"
-  - "%PYTHON%\\python.exe -m codecov"
+  - "%PYTHON%\\python.exe -m tox -e codecov"

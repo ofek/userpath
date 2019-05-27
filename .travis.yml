@@ -19,5 +19,4 @@ install:
   - pip install tox codecov
 
 script:
-  - tox -e $TOXENV,coverage
-  - codecov
+  - tox -e $TOXENV,coverage,codecov
