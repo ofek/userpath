@@ -1,11 +1,11 @@
 userpath
 ========
 
-.. image:: https://img.shields.io/travis/ofek/userpath/master.svg?logo=travis&logoColor=white&label=Travis%20CI
+.. image:: https://img.shields.io/travis/ofek/userpath/master.svg?logo=travis&label=Travis%20CI
     :target: https://travis-ci.org/ofek/userpath
     :alt: Travis CI
 
-.. image:: https://img.shields.io/appveyor/ci/ofek/userpath/master.svg?logo=appveyor&logoColor=white&label=AppVeyor
+.. image:: https://img.shields.io/appveyor/ci/ofek/userpath/master.svg?logo=appveyor&label=AppVeyor
     :target: https://ci.appveyor.com/project/ofek/userpath
     :alt: AppVeyor CI
 
@@ -13,19 +13,19 @@ userpath
     :target: https://codecov.io/github/ofek/userpath?branch=master
     :alt: Codecov
 
-.. image:: https://img.shields.io/pypi/pyversions/userpath.svg?logo=python&logoColor=white
+.. image:: https://img.shields.io/pypi/pyversions/userpath.svg?logo=python&label=Python&logoColor=gold
     :target: https://pypi.org/project/userpath
     :alt: PyPI - Supported Python versions
 
-.. image:: https://img.shields.io/pypi/v/userpath.svg?logo=python&logoColor=white
+.. image:: https://img.shields.io/pypi/v/userpath.svg?logo=python&label=PyPI&logoColor=gold
     :target: https://pypi.org/project/userpath
     :alt: PyPI - Version
 
-.. image:: https://pepy.tech/badge/userpath
-    :target: https://pepy.tech/project/userpath
+.. image:: https://img.shields.io/pypi/dm/userpath.svg?color=blue&label=Downloads&logo=python&logoColor=gold
+    :target: https://pypi.org/project/userpath
     :alt: PyPI - Downloads
 
-.. image:: https://img.shields.io/badge/license-MIT%2FApache--2.0-9400d3.svg
+.. image:: https://img.shields.io/badge/License-MIT%2FApache--2.0-9400d3.svg
     :target: https://choosealicense.com/licenses
     :alt: License: MIT/Apache-2.0
 
