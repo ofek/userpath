@@ -69,11 +69,13 @@ def prepend(locations, shells, all_shells, home, force):
                 ))
                 sys.exit(2)
 
-    if up.prepend(locations, shells=shells, all_shells=all_shells, home=home):
-        echo_success('Success!')
-    else:
-        echo_failure('An unexpected failure seems to have occurred.')
+    try:
+        up.prepend(locations, shells=shells, all_shells=all_shells, home=home, check=True)
+    except Exception as e:
+        echo_failure(str(e))
         sys.exit(1)
+    else:
+        echo_success('Success!')
 
 
 @userpath.command(context_settings=CONTEXT_SETTINGS, short_help='Appends to the user PATH')
@@ -118,11 +120,13 @@ def append(locations, shells, all_shells, home, force):
                 ))
                 sys.exit(2)
 
-    if up.append(locations, shells=shells, all_shells=all_shells, home=home):
-        echo_success('Success!')
-    else:
-        echo_failure('An unexpected failure seems to have occurred.')
+    try:
+        up.append(locations, shells=shells, all_shells=all_shells, home=home, check=True)
+    except Exception as e:
+        echo_failure(str(e))
         sys.exit(1)
+    else:
+        echo_success('Success!')
 
 
 @userpath.command(context_settings=CONTEXT_SETTINGS, short_help='Checks if locations are in the user PATH')
