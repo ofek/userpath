@@ -13,13 +13,13 @@ userpath
     :target: https://codecov.io/github/ofek/userpath?branch=master
     :alt: Codecov
 
-.. image:: https://img.shields.io/pypi/v/userpath.svg?logo=python&logoColor=white
-    :target: https://pypi.org/project/userpath
-    :alt: PyPI - Version
-
 .. image:: https://img.shields.io/pypi/pyversions/userpath.svg?logo=python&logoColor=white
     :target: https://pypi.org/project/userpath
     :alt: PyPI - Supported Python versions
+
+.. image:: https://img.shields.io/pypi/v/userpath.svg?logo=python&logoColor=white
+    :target: https://pypi.org/project/userpath
+    :alt: PyPI - Version
 
 .. image:: https://pepy.tech/badge/userpath
     :target: https://pepy.tech/project/userpath
