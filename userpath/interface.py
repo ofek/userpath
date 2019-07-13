@@ -45,7 +45,7 @@ class WindowsInterface:
                 ],
                 shell=True,
             )
-        except subprocess.CalledProcessError:
+        except subprocess.CalledProcessError:  # no cov
             try:
                 head, tail = (location, '%~a') if front else ('%~a', location)
                 new_path = '{}{}{}'.format(head, os.pathsep, tail)
