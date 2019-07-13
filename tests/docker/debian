@@ -1,0 +1,10 @@
+ARG PYTHON_VERSION
+FROM python:${PYTHON_VERSION}-stretch
+
+RUN apt-get update \
+ && apt-get --no-install-recommends -y install fish zsh
+
+COPY requirements.txt /
+RUN pip install -r requirements.txt
+
+CMD ["tail", "-f", "/dev/null"]

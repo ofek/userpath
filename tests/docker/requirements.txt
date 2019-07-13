@@ -1,0 +1,10 @@
+# Deps
+click
+distro
+
+# Test deps
+coverage
+pytest
+
+# xonsh shell, if we can
+xonsh; python_version > '3.0'

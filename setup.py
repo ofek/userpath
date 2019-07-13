@@ -13,12 +13,12 @@ with open('userpath/__init__.py', 'r') as f:
 with open('README.rst', 'r', encoding='utf-8') as f:
     readme = f.read()
 
-REQUIRES = ['click']
+REQUIRES = ['click', 'distro']
 
 setup(
     name='userpath',
     version=version,
-    description='Cross-platform tool for adding locations to the user PATH, no sudo/runas required!',
+    description='Cross-platform tool for adding locations to the user PATH, no elevated privileges required!',
     long_description=readme,
     author='Ofek Lev',
     author_email='ofekmeister@gmail.com',
@@ -41,20 +41,15 @@ setup(
         'License :: OSI Approved :: Apache Software License',
         'Natural Language :: English',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: Implementation :: CPython',
-        'Programming Language :: Python :: Implementation :: PyPy'
+        'Programming Language :: Python :: Implementation :: PyPy',
     ],
 
     install_requires=REQUIRES,
-    tests_require=['coverage', 'pytest'],
-
-    packages=find_packages(),
+    packages=['userpath'],
     entry_points={
         'console_scripts': [
             'userpath = userpath.cli:userpath',

@@ -3,6 +3,7 @@
 .cache/
 .coverage
 .idea/
+.tox/
 .vscode/
 userpath.egg-info/
 build/
