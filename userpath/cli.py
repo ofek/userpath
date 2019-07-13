@@ -44,11 +44,14 @@ def userpath():
     '-a',
     '--all-shells',
     is_flag=True,
-    help='Update PATH of all supported shells. This has no effect on Windows as that is the standard behavior.',
+    help=(
+        'Update PATH of all supported shells. This has no effect on Windows as environment settings are already global.'
+    ),
 )
 @click.option('--home', help='Explicitly set the home directory.')
 @click.option('-f', '--force', is_flag=True, help='Update PATH even if it appears to be correct.')
-def prepend(locations, shells, all_shells, home, force):
+@click.option('-q', '--quiet', is_flag=True, help='Suppress output for successful invocations.')
+def prepend(locations, shells, all_shells, home, force, quiet):
     """Prepends to the user PATH. The shell must be restarted for the update to
     take effect.
     """
@@ -75,7 +78,8 @@ def prepend(locations, shells, all_shells, home, force):
         echo_failure(str(e))
         sys.exit(1)
     else:
-        echo_success('Success!')
+        if not quiet:
+            echo_success('Success!')
 
 
 @userpath.command(context_settings=CONTEXT_SETTINGS, short_help='Appends to the user PATH')
@@ -95,11 +99,14 @@ def prepend(locations, shells, all_shells, home, force):
     '-a',
     '--all-shells',
     is_flag=True,
-    help='Update PATH of all supported shells. This has no effect on Windows as that is the standard behavior.',
+    help=(
+        'Update PATH of all supported shells. This has no effect on Windows as environment settings are already global.'
+    ),
 )
 @click.option('--home', help='Explicitly set the home directory.')
 @click.option('-f', '--force', is_flag=True, help='Update PATH even if it appears to be correct.')
-def append(locations, shells, all_shells, home, force):
+@click.option('-q', '--quiet', is_flag=True, help='Suppress output for successful invocations.')
+def append(locations, shells, all_shells, home, force, quiet):
     """Appends to the user PATH. The shell must be restarted for the update to
     take effect.
     """
@@ -126,7 +133,8 @@ def append(locations, shells, all_shells, home, force):
         echo_failure(str(e))
         sys.exit(1)
     else:
-        echo_success('Success!')
+        if not quiet:
+            echo_success('Success!')
 
 
 @userpath.command(context_settings=CONTEXT_SETTINGS, short_help='Checks if locations are in the user PATH')
@@ -146,14 +154,18 @@ def append(locations, shells, all_shells, home, force):
     '-a',
     '--all-shells',
     is_flag=True,
-    help='Update PATH of all supported shells. This has no effect on Windows as that is the standard behavior.',
+    help=(
+        'Update PATH of all supported shells. This has no effect on Windows as environment settings are already global.'
+    ),
 )
 @click.option('--home', help='Explicitly set the home directory.')
-def verify(locations, shells, all_shells, home):
+@click.option('-q', '--quiet', is_flag=True, help='Suppress output for successful invocations.')
+def verify(locations, shells, all_shells, home, quiet):
     """Checks if locations are in the user PATH."""
     for location in locations:
         if up.in_current_path(location):
-            echo_success('The directory `{}` is in PATH!'.format(location))
+            if not quiet:
+                echo_success('The directory `{}` is in PATH!'.format(location))
         elif up.in_new_path(location, shells=shells, all_shells=all_shells, home=home):
             echo_warning('The directory `{}` is in PATH, pending a shell restart!'.format(location))
             sys.exit(2)
