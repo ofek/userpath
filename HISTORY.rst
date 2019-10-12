@@ -1,17 +1,56 @@
 History
 -------
 
-Important changes are emphasized.
-
 master
 ^^^^^^
 
-1.2.0
-^^^^^
+- Expanded `HISTORY.rst`
+
+1.2.0 (2019-07-14)
+^^^^^^^^^^^^^^^^^^
 
 - Added support for shell auto-detection and selection
 
-1.1.0
-^^^^^
+1.1.0 (2018-05-16)
+^^^^^^^^^^^^^^^^^^
 
 - First public stable release
+
+1.0.0 (2018-05-16)
+^^^^^^^^^^^^^^^^^^
+
+- Renamed PyPI package from `adduserpath` to `userpath`.
+  Installed package in site-packages remains named `userpath`
+- Converted files to Unix end of lines
+
+0.4.0 (2017-09-28)
+^^^^^^^^^^^^^^^^^^
+
+- Expand `~` and `~user` constructions if `$HOME` or `user` is known
+
+0.3.0 (2017-09-26)
+^^^^^^^^^^^^^^^^^^
+
+- Renamed argument path to locations
+- Support operations on multiple locations
+- Improved image
+
+0.2.0 (2017-09-21)
+^^^^^^^^^^^^^^^^^^
+
+- First release on PyPI, as package named `adduserpath`
+
+0.1.5 (2017-09-20)
+^^^^^^^^^^^^^^^^^^
+
+- Improved setup.py
+
+0.1.0 (2017-09-20)
+^^^^^^^^^^^^^^^^^^
+
+- First release on GitHub, `setup.py` package named `adduserpath`
+
+0.0.1 (2017-09-20)
+^^^^^^^^^^^^^^^^^^
+
+- first commit, site-packages package named `userpath`
