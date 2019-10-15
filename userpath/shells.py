@@ -1,6 +1,9 @@
 from os import path, pathsep
 
-import distro
+try:
+    import distro
+except ImportError:  # pragma: no cover
+    distro = None
 
 DEFAULT_SHELLS = ('bash', 'sh')
 
@@ -34,7 +37,7 @@ class Bash(Shell):
         configs = {path.join(self.home, '.bashrc'): contents}
 
         # https://github.com/ofek/userpath/issues/3#issuecomment-492491977
-        if distro.id() == 'ubuntu':
+        if distro and distro.id() == 'ubuntu':  # pragma: no cover
             login_config = path.join(self.home, '.profile')
         else:
             # NOTE: If it is decided in future that we want to make a distinction between
