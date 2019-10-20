@@ -4,7 +4,12 @@ History
 master
 ^^^^^^
 
-- Expanded `HISTORY.rst`
+1.3.0 (2019-10-20)
+^^^^^^^^^^^^^^^^^^
+
+- Only require the dependency ``distro`` on Linux
+- Ship tests with source distributions
+- Expanded ``HISTORY.rst``
 
 1.2.0 (2019-07-14)
 ^^^^^^^^^^^^^^^^^^

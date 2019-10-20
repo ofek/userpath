@@ -114,6 +114,12 @@ History
 
 Important changes are emphasized.
 
+1.3.0
+^^^^^
+
+- Only require the dependency ``distro`` on Linux
+- Ship tests with source distributions
+
 1.2.0
 ^^^^^
 
