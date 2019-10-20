@@ -13,7 +13,7 @@ with open('userpath/__init__.py', 'r') as f:
 with open('README.rst', 'r', encoding='utf-8') as f:
     readme = f.read()
 
-REQUIRES = ['click', 'distro']
+REQUIRES = ['click']
 
 setup(
     name='userpath',
@@ -25,7 +25,7 @@ setup(
     maintainer='Ofek Lev',
     maintainer_email='ofekmeister@gmail.com',
     url='https://github.com/ofek/userpath',
-    license='MIT/Apache-2.0',
+    license='MIT OR Apache-2.0',
 
     keywords=[
         'scripts',
@@ -49,6 +49,7 @@ setup(
     ],
 
     install_requires=REQUIRES,
+    extras_require={':platform_system == "Linux"': ['distro']},
     packages=['userpath'],
     entry_points={
         'console_scripts': [
