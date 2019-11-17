@@ -38,6 +38,22 @@ class TestDebian(object):
 
             assert process.returncode == 0, (stdout + stderr).decode('utf-8')
 
+    def test_prepend_twice(self, request, shell_test):
+        if shell_test is None:
+            location = get_random_path()
+            assert not userpath.in_current_path(location)
+            assert userpath.prepend(location, check=True)
+            assert userpath.in_new_path(location)
+            assert userpath.need_shell_restart(location)
+
+            assert userpath.prepend(location, check=True)
+        else:
+            process = shell_test(request.node.name)
+            stdout, stderr = process.communicate()
+
+            assert process.returncode == 0, (stdout + stderr).decode('utf-8')
+
+
     def test_append(self, request, shell_test):
         if shell_test is None:
             location = get_random_path()
