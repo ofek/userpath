@@ -143,6 +143,9 @@ class UnixInterface:
                     else:
                         lines = []
 
+                    if any(contents in line for line in lines):
+                        continue
+
                     lines.append(
                         u'\n{} Created by `{}` on {}\n'.format(
                             shell.comment_starter, app_name, datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
