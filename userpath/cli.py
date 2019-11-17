@@ -14,7 +14,7 @@ def echo_success(text, nl=True):
 
 
 def echo_failure(text, nl=True):
-    click.secho(text, fg='red', bold=True, nl=nl)
+    click.secho(text, fg='red', bold=True, nl=nl, err=True)
 
 
 def echo_warning(text, nl=True):
