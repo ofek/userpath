@@ -1,28 +1,37 @@
 import os
 import platform
-import subprocess
 from datetime import datetime
 from io import open
 
 from .shells import DEFAULT_SHELLS, SHELLS
 from .utils import ensure_parent_dir_exists, get_flat_output, get_parent_process_name, location_in_path, normpath
 
+try:
+    import winreg
+except ImportError:
+    try:
+        import _winreg as winreg
+    except ImportError:
+        winreg = None
+
 
 class WindowsInterface:
     def __init__(self, **kwargs):
         pass
 
+    @staticmethod
+    def _get_new_path():
+        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, 'Environment', 0, winreg.KEY_READ) as key:
+            return winreg.QueryValueEx(key, 'PATH')[0]
+
     def location_in_new_path(self, location, check=False):
         locations = normpath(location).split(os.pathsep)
-        show_path_command = ['powershell', '-Command', "& {[Environment]::GetEnvironmentVariable('PATH', 'User')}"]
-        new_path = get_flat_output(show_path_command, sep='', shell=True)
+        new_path = self._get_new_path()
 
         for location in locations:
             if not location_in_path(location, new_path):
                 if check:
-                    raise Exception(
-                        'Unable to find `{}` in the output of `{}`:\n{}'.format(location, show_path_command, new_path)
-                    )
+                    raise Exception('Unable to find `{}` in:\n{}'.format(location, new_path))
                 else:
                     return False
         else:
@@ -31,36 +40,11 @@ class WindowsInterface:
     def put(self, location, front=True, check=False, **kwargs):
         location = normpath(location)
 
-        # PowerShell should always be available on Windows 7 or later.
-        try:
-            old_path = os.environ.get('PATH', '')
-            head, tail = (location, old_path) if front else (old_path, location)
-            new_path = '{}{}{}'.format(head, os.pathsep, tail)
+        head, tail = (location, self._get_new_path()) if front else (self._get_new_path(), location)
+        new_path = '{}{}{}'.format(head, os.pathsep, tail)
 
-            subprocess.check_output(
-                [
-                    'powershell',
-                    '-Command',
-                    "& {{[Environment]::SetEnvironmentVariable('PATH', '{}', 'User')}}".format(new_path),
-                ],
-                shell=True,
-            )
-        except subprocess.CalledProcessError:  # no cov
-            try:
-                head, tail = (location, '%~a') if front else ('%~a', location)
-                new_path = '{}{}{}'.format(head, os.pathsep, tail)
-
-                # https://superuser.com/a/601034/766960
-                subprocess.check_output(
-                    (
-                        'for /f "skip=2 tokens=3*" %a in (\'reg query HKCU\\Environment '
-                        '/v PATH\') do @if [%b]==[] ( @setx PATH "{new_path}" ) else '
-                        '( @setx PATH "{new_path} %~b" )'.format(new_path=new_path)
-                    ),
-                    shell=True,
-                )
-            except subprocess.CalledProcessError:
-                return False
+        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, 'Environment', 0, winreg.KEY_WRITE) as key:
+            winreg.SetValueEx(key, 'PATH', 0, winreg.REG_SZ, new_path)
 
         return self.location_in_new_path(location, check=check)
 
