@@ -114,6 +114,13 @@ History
 
 Important changes are emphasized.
 
+1.4.0
+^^^^^
+
+- Fix duplicating system paths on Windows
+- Prevent adding paths multiple times on macOS/Linux
+- Send CLI errors to stderr instead of stdout
+
 1.3.0
 ^^^^^
 
