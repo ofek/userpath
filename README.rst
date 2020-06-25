@@ -114,6 +114,11 @@ History
 
 Important changes are emphasized.
 
+1.4.1
+^^^^^
+
+- Fix PATH registry key type on Windows
+
 1.4.0
 ^^^^^
 
