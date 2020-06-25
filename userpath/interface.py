@@ -44,7 +44,7 @@ class WindowsInterface:
         new_path = '{}{}{}'.format(head, os.pathsep, tail)
 
         with winreg.OpenKey(winreg.HKEY_CURRENT_USER, 'Environment', 0, winreg.KEY_WRITE) as key:
-            winreg.SetValueEx(key, 'PATH', 0, winreg.REG_SZ, new_path)
+            winreg.SetValueEx(key, 'PATH', 0, winreg.REG_EXPAND_SZ, new_path)
 
         return self.location_in_new_path(location, check=check)
 
