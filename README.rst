@@ -114,6 +114,11 @@ History
 
 Important changes are emphasized.
 
+1.4.2
+^^^^^
+
+- Fix fallback mechanism for detecting the name of the parent process
+
 1.4.1
 ^^^^^
 

@@ -4,6 +4,23 @@ History
 master
 ^^^^^^
 
+1.4.2
+^^^^^
+
+- Fix fallback mechanism for detecting the name of the parent process
+
+1.4.1
+^^^^^
+
+- Fix PATH registry key type on Windows
+
+1.4.0
+^^^^^
+
+- Fix duplicating system paths on Windows
+- Prevent adding paths multiple times on macOS/Linux
+- Send CLI errors to stderr instead of stdout
+
 1.3.0 (2019-10-20)
 ^^^^^^^^^^^^^^^^^^
 
