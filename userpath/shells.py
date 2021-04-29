@@ -1,9 +1,5 @@
 from os import path, pathsep
 
-try:
-    import distro
-except ImportError:  # pragma: no cover
-    distro = None
 
 DEFAULT_SHELLS = ('bash', 'sh')
 
@@ -37,13 +33,16 @@ class Bash(Shell):
         configs = {path.join(self.home, '.bashrc'): contents}
 
         # https://github.com/ofek/userpath/issues/3#issuecomment-492491977
-        if distro and distro.id() == 'ubuntu':  # pragma: no cover
-            login_config = path.join(self.home, '.profile')
+        profile_path = path.join(self.home, '.profile')
+        bash_profile_path profile_path = path.join(self.home, '.bash_profile')
+
+        if path.exists(profile_path) and not path.exists(bash_profile_path):
+            login_config = profile_path
         else:
             # NOTE: If it is decided in future that we want to make a distinction between
             # login and non-login shells, be aware that macOS will still need this since
             # Terminal.app runs a login shell by default for each new terminal window.
-            login_config = path.join(self.home, '.bash_profile')
+            login_config = bash_profile_path
 
         configs[login_config] = contents
 
