@@ -51,7 +51,6 @@ setup(
     ],
 
     install_requires=REQUIRES,
-    extras_require={':platform_system == "Linux"': ['distro']},
     packages=['userpath'],
     entry_points={
         'console_scripts': [
