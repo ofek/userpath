@@ -34,7 +34,7 @@ class Bash(Shell):
 
         # https://github.com/ofek/userpath/issues/3#issuecomment-492491977
         profile_path = path.join(self.home, '.profile')
-        bash_profile_path profile_path = path.join(self.home, '.bash_profile')
+        bash_profile_path = path.join(self.home, '.bash_profile')
 
         if path.exists(profile_path) and not path.exists(bash_profile_path):
             login_config = profile_path
