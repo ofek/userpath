@@ -114,6 +114,12 @@ History
 
 Important changes are emphasized.
 
+1.5.0
+^^^^^
+
+- Modify bash start-up files based on their existence
+- Remove ``distro`` dependency
+
 1.4.2
 ^^^^^
 
