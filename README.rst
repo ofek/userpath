@@ -114,6 +114,11 @@ History
 
 Important changes are emphasized.
 
+1.6.0
+^^^^^
+
+- Use locale's encoding when handling output from subprocesses
+
 1.5.0
 ^^^^^
 
