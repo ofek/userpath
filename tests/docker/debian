@@ -1,5 +1,5 @@
 ARG PYTHON_VERSION
-FROM python:${PYTHON_VERSION}-stretch
+FROM python:${PYTHON_VERSION}-buster
 
 RUN apt-get update \
  && apt-get --no-install-recommends -y install fish zsh
