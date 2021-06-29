@@ -4,6 +4,8 @@ History
 master
 ^^^^^^
 
+- Fix path normalization to be aware of case-insensitive platforms and symlinks.
+
 1.6.0
 ^^^^^
 
