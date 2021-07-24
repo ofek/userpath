@@ -114,6 +114,11 @@ History
 
 Important changes are emphasized.
 
+1.7.0
+^^^^^
+
+- Fix path normalization to be aware of case-insensitive platforms and symlinks.
+
 1.6.0
 ^^^^^
 
