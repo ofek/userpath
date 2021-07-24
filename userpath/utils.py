@@ -12,11 +12,11 @@ def normpath(location):
     if isinstance(location, (list, tuple)):
         return os.pathsep.join(normpath(l) for l in location)
 
-    return os.path.abspath(os.path.expanduser(location.strip(';:')))
+    return os.path.normcase(os.path.realpath(os.path.expanduser(location.strip(';:'))))
 
 
 def location_in_path(location, path):
-    return normpath(location) in (os.path.normpath(p) for p in path.split(os.pathsep))
+    return normpath(location) in (normpath(p) for p in path.split(os.pathsep))
 
 
 def in_current_path(location):
