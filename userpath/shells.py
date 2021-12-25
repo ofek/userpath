@@ -1,4 +1,4 @@
-from os import path, pathsep
+from os import environ, path, pathsep
 
 
 DEFAULT_SHELLS = ('bash', 'sh')
@@ -94,7 +94,8 @@ class Zsh(Shell):
         new_path = '{}{}{}'.format(head, pathsep, tail)
         contents = 'export PATH="{}"'.format(new_path)
 
-        return {path.join(self.home, '.zshrc'): contents, path.join(self.home, '.zprofile'): contents}
+        zdotdir = environ.get('ZDOTDIR', self.home)
+        return {path.join(zdotdir, '.zshrc'): contents, path.join(zdotdir, '.zprofile'): contents}
 
     @classmethod
     def show_path_commands(cls):
