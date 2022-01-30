@@ -26,13 +26,10 @@ def shell_test(request):
         dockerfile = getattr(request.cls, 'DOCKERFILE', 'debian')
         container = '{}-{}'.format(shell_name, dockerfile)
 
-        tox_env = os.environ['TOX_ENV_NAME']
-        python_version = '.'.join(tox_env.replace('py', ''))
-
         try:
             os.environ['SHELL'] = shell_name
             os.environ['DOCKERFILE'] = dockerfile
-            os.environ['PYTHON_VERSION'] = python_version
+            os.environ['PYTHON_VERSION'] = os.environ['TOX_ENV_NAME']
             subprocess.check_call(['docker-compose', '-f', compose_file, 'up', '-d', '--build'])
 
             # Python gets really upset when compiled files from different paths and/or platforms are encountered
