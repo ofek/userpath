@@ -22,6 +22,9 @@ jobs:
         os: [ubuntu-latest, windows-latest]
         python-version: ['3.7']
 
+    env:
+      PYTHON_VERSION: '${{ matrix.python-version }}'
+
     steps:
     - uses: actions/checkout@v2
 
