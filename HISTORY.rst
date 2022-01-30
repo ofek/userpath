@@ -4,6 +4,9 @@ History
 master
 ^^^^^^
 
+1.8.0
+^^^^^
+
 - Broadcast WM_SETTINGCHANGE on Windows
 - Drop Python 2.7 & 3.6
 
