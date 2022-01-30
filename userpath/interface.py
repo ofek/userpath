@@ -38,6 +38,8 @@ class WindowsInterface:
             return True
 
     def put(self, location, front=True, check=False, **kwargs):
+        import ctypes
+
         location = normpath(location)
 
         head, tail = (location, self._get_new_path()) if front else (self._get_new_path(), location)
@@ -45,6 +47,18 @@ class WindowsInterface:
 
         with winreg.OpenKey(winreg.HKEY_CURRENT_USER, 'Environment', 0, winreg.KEY_WRITE) as key:
             winreg.SetValueEx(key, 'PATH', 0, winreg.REG_EXPAND_SZ, new_path)
+
+        # https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-sendmessagetimeoutw
+        # https://docs.microsoft.com/en-us/windows/win32/winmsg/wm-settingchange
+        ctypes.windll.user32.SendMessageTimeoutW(
+            0xFFFF,  # HWND_BROADCAST
+            0x1A,  # WM_SETTINGCHANGE
+            0,  # must be NULL
+            'Environment',
+            0x0002,  # SMTO_ABORTIFHUNG
+            5000,  # milliseconds
+            ctypes.wintypes.DWORD(),
+        )
 
         return self.location_in_new_path(location, check=check)
 
