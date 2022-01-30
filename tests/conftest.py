@@ -1,4 +1,5 @@
 import os
+import platform
 import subprocess
 from itertools import chain
 
@@ -18,7 +19,7 @@ def pytest_configure(config):
 
 @pytest.fixture(scope='class')
 def shell_test(request):
-    if 'SHELL' in os.environ:
+    if 'SHELL' in os.environ or platform.system() == 'Windows':
         yield
     else:
         compose_file = os.path.join(HERE, 'docker', 'docker-compose.yaml')
