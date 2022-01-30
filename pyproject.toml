@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "userpath"
 description = 'Cross-platform tool for adding locations to the user PATH'
-readme = "README.md"
+readme = "README.rst"
 license = "MIT OR Apache-2.0"
 requires-python = ">=3.7"
 keywords = [
