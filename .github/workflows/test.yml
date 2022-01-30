@@ -31,7 +31,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     - name: Install test dependencies
-      run: pip install --upgrade tox codecov
+      run: pip install --upgrade tox
 
     - name: Run tests
-      run: tox -e ${{ matrix.python-version }},coverage,codecov
+      run: tox -e ${{ matrix.python-version }},coverage
