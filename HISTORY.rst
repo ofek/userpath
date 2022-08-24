@@ -8,6 +8,7 @@ master
 ^^^^^
 
 - Broadcast WM_SETTINGCHANGE on Windows
+- zsh: respect ZDOTDIR env var
 - Drop Python 2.7 & 3.6
 
 1.7.0
