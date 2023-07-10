@@ -16,7 +16,7 @@ def normpath(location):
 
 
 def location_in_path(location, path):
-    return normpath(location) in (normpath(p) for p in path.split(os.pathsep))
+    return normpath(location) in (normpath(p) for p in path.split(os.pathsep) if p != '')
 
 
 def in_current_path(location):
