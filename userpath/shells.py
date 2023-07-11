@@ -30,8 +30,6 @@ class Bash(Shell):
         new_path = '{}{}{}'.format(head, pathsep, tail)
         contents = 'export PATH="{}"'.format(new_path)
 
-        configs = {path.join(self.home, '.bashrc'): contents}
-
         # https://github.com/ofek/userpath/issues/3#issuecomment-492491977
         profile_path = path.join(self.home, '.profile')
         bash_profile_path = path.join(self.home, '.bash_profile')
@@ -44,9 +42,7 @@ class Bash(Shell):
             # Terminal.app runs a login shell by default for each new terminal window.
             login_config = bash_profile_path
 
-        configs[login_config] = contents
-
-        return configs
+        return {login_config: contents}
 
     @classmethod
     def show_path_commands(cls):
@@ -95,7 +91,8 @@ class Zsh(Shell):
         contents = 'export PATH="{}"'.format(new_path)
 
         zdotdir = environ.get('ZDOTDIR', self.home)
-        return {path.join(zdotdir, '.zshrc'): contents, path.join(zdotdir, '.zprofile'): contents}
+
+        return {path.join(zdotdir, '.zprofile'): contents}
 
     @classmethod
     def show_path_commands(cls):
