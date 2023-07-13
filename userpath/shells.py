@@ -42,11 +42,12 @@ class Bash(Shell):
             # Terminal.app runs a login shell by default for each new terminal window.
             login_config = bash_profile_path
 
+        # return {login_config: contents, path.join(self.home, '.bashrc'): contents}
         return {login_config: contents}
 
     @classmethod
     def show_path_commands(cls):
-        return [['bash', '-i', '-c', 'echo $PATH'], ['bash', '-i', '-l', '-c', 'echo $PATH']]
+        return [['bash', '-i', '-l', '-c', 'echo $PATH']]
 
 
 class Fish(Shell):
@@ -96,7 +97,7 @@ class Zsh(Shell):
 
     @classmethod
     def show_path_commands(cls):
-        return [['zsh', '-i', '-c', 'echo $PATH'], ['zsh', '-i', '-l', '-c', 'echo $PATH']]
+        return [['zsh', '-i', '-l', '-c', 'echo $PATH']]
 
 
 SHELLS = {
