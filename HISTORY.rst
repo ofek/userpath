@@ -4,6 +4,12 @@ History
 master
 ^^^^^^
 
+1.9.0
+^^^^^
+
+- Ignore the current directory for path detection on Windows
+- On non-Windows systems only modify login shells
+
 1.8.0
 ^^^^^
 
