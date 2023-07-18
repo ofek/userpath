@@ -42,7 +42,6 @@ class Bash(Shell):
             # Terminal.app runs a login shell by default for each new terminal window.
             login_config = bash_profile_path
 
-        # return {login_config: contents, path.join(self.home, '.bashrc'): contents}
         return {login_config: contents}
 
     @classmethod
