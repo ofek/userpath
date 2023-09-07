@@ -4,6 +4,9 @@ History
 master
 ^^^^^^
 
+1.9.1
+^^^^^
+
 - Temporarily revert the change on non-Windows systems where only login shells are modified
 
 1.9.0
