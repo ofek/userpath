@@ -37,6 +37,10 @@ class Sh(Shell):
         return [cls._interactive_login_show_path_command()]
 
 
+class Ash(Sh):
+    name = 'ash'
+
+
 class Bash(Sh):
     name = 'bash'
 
@@ -114,6 +118,7 @@ class Zsh(Sh):
 
 
 SHELLS = {
+    'ash': Ash,
     'bash': Bash,
     'fish': Fish,
     'sh': Sh,
