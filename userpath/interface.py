@@ -39,6 +39,7 @@ class WindowsInterface:
 
     def put(self, location, front=True, check=False, **kwargs):
         import ctypes
+        import ctypes.wintypes
 
         location = normpath(location)
 
