@@ -4,6 +4,11 @@ History
 master
 ^^^^^^
 
+1.9.2
+^^^^^
+
+- Fix import error on Windows
+
 1.9.1
 ^^^^^
 
