@@ -56,12 +56,11 @@ class Bash(Shell):
 class Fish(Shell):
     def config(self, location, front=True):
         location = ' '.join(location.split(pathsep))
-        head, tail = (location, '$PATH') if front else ('$PATH', location)
+        arg = "-" + ("p" if front else "a")
 
-        # https://github.com/fish-shell/fish-shell/issues/527#issuecomment-12436286
-        contents = 'set PATH {} {}'.format(head, tail)
+        contents = f"contains {location} $PATH; or set -gx {arg} PATH {location}"
 
-        return {path.join(self.home, '.config', 'fish', 'config.fish'): contents}
+        return {path.join(self.home, ".config", "fish", "config.fish"): contents}
 
     @classmethod
     def show_path_commands(cls):
