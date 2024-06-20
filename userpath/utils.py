@@ -30,8 +30,11 @@ def ensure_parent_dir_exists(path):
 
 
 def get_flat_output(command, sep=os.pathsep, **kwargs):
-    process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, **kwargs)
-    output = process.communicate()[0].decode(locale.getpreferredencoding(False)).strip()
+    try:
+        process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, **kwargs)
+        output = process.communicate()[0].decode(locale.getpreferredencoding(False)).strip()
+    except OSError:
+        return ''
 
     # We do this because the output may contain new lines.
     lines = [line.strip() for line in output.splitlines()]
