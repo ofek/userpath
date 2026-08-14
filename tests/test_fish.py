@@ -63,3 +63,23 @@ class TestDebian(object):
             stdout, stderr = process.communicate()
 
             assert process.returncode == 0, (stdout + stderr).decode('utf-8')
+
+
+def test_fish_config_quotes_paths_with_spaces():
+    from os import pathsep
+
+    from userpath.shells import Fish
+
+    fish = Fish(home='/tmp/home')
+    location = '/Users/hynek/Library/Application Support/hatch/bin'
+    contents = next(iter(fish.config(location, front=True).values()))
+    assert contents == 'set PATH "{}" $PATH'.format(location)
+
+    contents = next(iter(fish.config(location, front=False).values()))
+    assert contents == 'set PATH $PATH "{}"'.format(location)
+
+    locations = pathsep.join(
+        ['/foo/Application Support/bin', '/bar/My Apps/bin']
+    )
+    contents = next(iter(fish.config(locations, front=True).values()))
+    assert contents == 'set PATH "/foo/Application Support/bin" "/bar/My Apps/bin" $PATH'
