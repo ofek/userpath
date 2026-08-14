@@ -53,10 +53,22 @@ class Bash(Shell):
         return [['bash', '-i', '-c', 'echo $PATH'], ['bash', '-i', '-l', '-c', 'echo $PATH']]
 
 
+def _fish_quote(location):
+    """Quote a path so fish treats it as a single token.
+
+    Unquoted spaces in ``set PATH ...`` split the entry (fish-shell/fish-shell#527).
+    Double-quote and escape ``\\``, ``"``, and ``$`` so Hatch-style paths like
+    ``.../Application Support/...`` survive into config.fish.
+    """
+    escaped = location.replace('\\', '\\\\').replace('"', '\\"').replace('$', '\\$')
+    return '"{}"'.format(escaped)
+
+
 class Fish(Shell):
     def config(self, location, front=True):
-        location = ' '.join(location.split(pathsep))
-        head, tail = (location, '$PATH') if front else ('$PATH', location)
+        # PATH is a list in fish; quote each entry so spaces are not word-split.
+        quoted = ' '.join(_fish_quote(part) for part in location.split(pathsep))
+        head, tail = (quoted, '$PATH') if front else ('$PATH', quoted)
 
         # https://github.com/fish-shell/fish-shell/issues/527#issuecomment-12436286
         contents = 'set PATH {} {}'.format(head, tail)

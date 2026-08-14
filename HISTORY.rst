@@ -4,6 +4,8 @@ History
 master
 ^^^^^^
 
+- Quote Fish PATH entries so locations with spaces (e.g. ``Application Support``) are a single token
+
 1.9.2
 ^^^^^
 
