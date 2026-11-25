@@ -4,6 +4,10 @@ from os import environ, path, pathsep
 DEFAULT_SHELLS = ('bash', 'sh')
 
 
+def _escape_double_quotes(value):
+    return value.replace('\\', '\\\\').replace('"', '\\"').replace('$', '\\$').replace('`', '\\`')
+
+
 class Shell(object):
     comment_starter = '#'
 
@@ -13,6 +17,7 @@ class Shell(object):
 
 class Sh(Shell):
     def config(self, location, front=True):
+        location = _escape_double_quotes(location)
         head, tail = (location, '$PATH') if front else ('$PATH', location)
         new_path = '{}{}{}'.format(head, pathsep, tail)
 
@@ -26,6 +31,7 @@ class Sh(Shell):
 
 class Bash(Shell):
     def config(self, location, front=True):
+        location = _escape_double_quotes(location)
         head, tail = (location, '$PATH') if front else ('$PATH', location)
         new_path = '{}{}{}'.format(head, pathsep, tail)
         contents = 'export PATH="{}"'.format(new_path)
@@ -90,6 +96,7 @@ class Xonsh(Shell):
 
 class Zsh(Shell):
     def config(self, location, front=True):
+        location = _escape_double_quotes(location)
         head, tail = (location, '$PATH') if front else ('$PATH', location)
         new_path = '{}{}{}'.format(head, pathsep, tail)
         contents = 'export PATH="{}"'.format(new_path)
